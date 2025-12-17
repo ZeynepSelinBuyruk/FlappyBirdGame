@@ -10,6 +10,7 @@ let birdHeight = 24;
 let birdX = boardWidth / 8;
 let birdY = boardHeight / 2;
 let birdImg;
+
 let bird = {
     x: birdX,
     y: birdY,
@@ -17,6 +18,12 @@ let bird = {
     height: birdHeight
 }
 
+//physics
+let velocityY = 0; //bird jump speed
+let gravity = 0.4;
+
+//game loop
+let gameRunning = false;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -24,15 +31,53 @@ window.onload = function() {
     board.height = boardHeight;
     context = board.getContext("2d");
 
-    //draw bird
-    context.fillStyle = "skyblue";
-    context.fillRect(bird.x, bird.y, bird.width, bird.height);
-
     //load image
     birdImg = new Image();
     birdImg.src = "./flappybird.png";
     birdImg.onload = function() {
-    context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
-}   
+        context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+    }
+
+    //start game
+    gameRunning = true;
+    requestAnimationFrame(update);
 }
+
+//update function
+function update() {
+    if (!gameRunning) return;
+
+    //clear canvas
+    context.clearRect(0, 0, board.width, board.height);
+
+    //apply gravity
+    velocityY += gravity;
+    bird.y += velocityY;
+
+    //draw bird
+    context.drawImage(birdImg, bird.x, bird.y, bird.width, bird.height);
+
+    //check boundaries
+    if (bird.y + bird.height >= boardHeight || bird.y <= 0) {
+        gameRunning = false;
+    }
+
+    requestAnimationFrame(update);
+}
+
+//jump function
+function jump() {
+    velocityY = -8; //jump up
+}
+
+//event listeners
+document.addEventListener("keydown", function(e) {
+    if (e.code == "Space") {
+        jump();
+    }
+});
+
+document.addEventListener("click", function() {
+    jump();
+});
 
