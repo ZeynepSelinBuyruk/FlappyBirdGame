@@ -67,6 +67,10 @@ function update() {
 
 //jump function
 function jump() {
+    if (!gameRunning) {
+        gameRunning = true;
+        requestAnimationFrame(update);
+    }
     velocityY = -8; //jump up
 }
 
