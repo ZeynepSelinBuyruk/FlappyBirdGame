@@ -61,7 +61,13 @@ window.onload = function() {
 
 //update function
 function update() {
-    if (!gameRunning) return;
+    if (!gameRunning) {
+        //draw game over
+        context.fillStyle = "red";
+        context.font = "45px Courier";
+        context.fillText("Game Over", boardWidth / 2 - 100, boardHeight / 2);
+        return;
+    }
 
     //clear canvas
     context.clearRect(0, 0, board.width, board.height);
