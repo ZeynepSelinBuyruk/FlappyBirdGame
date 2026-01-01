@@ -19,8 +19,8 @@ let bird = {
 }
 
 //physics
-let velocityY = 0; //bird jump speed
-let gravity = 0.4;
+let velocityY = -2; //bird jump speed, start with slight upward
+let gravity = 0.3; //reduced gravity
 
 //pipes
 let pipeArray = [];
@@ -82,7 +82,7 @@ function update() {
     //pipes
     for (let i = 0; i < pipeArray.length; i++) {
         let pipe = pipeArray[i];
-        pipe.x += -2; //move left
+        pipe.x += -1.5; //slower pipe movement
         context.drawImage(pipe.img, pipe.x, pipe.y, pipe.width, pipe.height);
 
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
@@ -101,7 +101,7 @@ function update() {
     }
 
     //spawn pipes
-    if (pipeArray.length == 0 || pipeArray[pipeArray.length - 1].x < boardWidth - 200) {
+    if (pipeArray.length == 0 || pipeArray[pipeArray.length - 1].x < boardWidth - 250) {
         createPipe();
     }
 
@@ -125,7 +125,7 @@ function jump() {
 //pipe functions
 function createPipe() {
     let randomPipeY = pipeY - pipeHeight / 4 - Math.random() * (pipeHeight / 2);
-    let openingSpace = boardHeight / 4;
+    let openingSpace = boardHeight / 3; //increased opening space
 
     let topPipe = {
         img: topPipeImg,
