@@ -7,7 +7,7 @@ let context;
 //bird
 let birdWidth = 34;
 let birdHeight = 24;
-let birdX = boardWidth / 8;
+let birdX = boardWidth / 2;
 let birdY = boardHeight / 2;
 let birdImg;
 
@@ -34,6 +34,7 @@ let bottomPipeImg;
 
 //game loop
 let gameRunning = false;
+let score = 0;
 
 window.onload = function() {
     board = document.getElementById("board");
@@ -72,6 +73,11 @@ function update() {
     //clear canvas
     context.clearRect(0, 0, board.width, board.height);
 
+    //draw score
+    context.fillStyle = "white";
+    context.font = "20px Arial";
+    context.fillText("Score: " + score, 10, 30);
+
     //apply gravity
     velocityY += gravity;
     bird.y += velocityY;
@@ -87,6 +93,9 @@ function update() {
 
         if (!pipe.passed && bird.x > pipe.x + pipe.width) {
             pipe.passed = true;
+            if (pipe.img == topPipeImg) {
+                score++; //increase score when bird passes a top pipe (every pipe pair)
+            }
         }
 
         //collision
