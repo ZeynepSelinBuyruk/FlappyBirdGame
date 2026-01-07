@@ -34,6 +34,7 @@ let bottomPipeImg;
 
 //game loop
 let gameRunning = false;
+let gameOver = false;
 let score = 0;
 
 window.onload = function() {
@@ -62,7 +63,7 @@ window.onload = function() {
 
 //update function
 function update() {
-    if (!gameRunning) {
+    if (gameOver) {
         //draw game over
         context.fillStyle = "red";
         context.font = "45px Courier";
@@ -101,6 +102,7 @@ function update() {
         //collision
         if (detectCollision(bird, pipe)) {
             gameRunning = false;
+            gameOver = true;
         }
     }
 
@@ -117,6 +119,7 @@ function update() {
     //check boundaries
     if (bird.y + bird.height >= boardHeight || bird.y <= 0) {
         gameRunning = false;
+        gameOver = true;
     }
 
     requestAnimationFrame(update);
@@ -126,6 +129,7 @@ function update() {
 function jump() {
     if (!gameRunning) {
         gameRunning = true;
+        gameOver = false;
         requestAnimationFrame(update);
     }
     velocityY = -8; //jump up
