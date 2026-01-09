@@ -1,13 +1,42 @@
-body{
-    font-family:'Courier New', Courier, monospace;
-    text-align: center;
+body {
+   font-family: 'Courier New', Courier, monospace;
+   text-align: center;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   min-height: 100vh;
+   background: #0f172a;
 }
+
+#game-container {
+   position: relative;
+   display: inline-block;
+}
+
 #board {
-   /* background-color: skyblue;*/
    background-image: url("flappybirdbg.png");
 }
-    
-#bird
- {
-   bird-image: url("flappybird.png");
+
+#start-button {
+   position: absolute;
+   left: 50%;
+   top: 50%;
+   transform: translate(-50%, -50%);
+   padding: 12px 28px;
+   font-size: 18px;
+   font-family: inherit;
+   color: #ffffff;
+   background: #22c55e;
+   border: none;
+   border-radius: 12px;
+   cursor: pointer;
+   box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+#start-button:hover {
+   background: #16a34a;
+}
+
+#start-button:active {
+   transform: translate(-50%, -50%) scale(0.97);
 }
